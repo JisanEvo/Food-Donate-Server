@@ -45,7 +45,7 @@ async function run() {
       console.log(result)
       res.send(result)
     })
-    // manage food related
+    // manage food 
     app.get("/manageFood/:email", async (req, res) => {
       console.log(req.params.email)
       const result = await foodCollection.find({ email: req.params.email }).toArray()
