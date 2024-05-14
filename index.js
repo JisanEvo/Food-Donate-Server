@@ -45,13 +45,13 @@ async function run() {
       console.log(result)
       res.send(result)
     })
-    // manage food 
+    // manage food
     app.get("/manageFood/:email", async (req, res) => {
       console.log(req.params.email)
       const result = await foodCollection.find({ email: req.params.email }).toArray()
       res.send(result)
     })
-    // single card products
+    // single card 
     app.get("/singleFood/:id", async (req, res) => {
       const result = await foodCollection.findOne({ _id: new ObjectId(req.params.id) })
       res.send(result)
