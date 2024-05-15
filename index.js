@@ -33,11 +33,27 @@ async function run() {
     // await client.connect();
     // Send a ping to confirm a successful connection
     const foodCollection = client.db('foodDonate').collection('allFood');
+    const reqCollection = client.db('foodDonate').collection('reqFood');
 
     app.get('/food', async (req, res) => {
       const result = await foodCollection.find().toArray()
       res.send(result)
     })
+
+    // app.get('/req', async (req, res) => {
+    //   const email=req.params.email
+    //   const query={email:email}
+    //   const result = await reqCollection.find(query).toArray()
+    //   res.send(result)
+    // })
+
+    app.get('/req/:email', async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const result = await reqCollection.find(query).toArray();
+      res.send(result);
+  });
+
     // add foo
     app.post("/addFood", async (req, res) => {
       console.log(req.body)
@@ -51,9 +67,18 @@ async function run() {
       const result = await foodCollection.find({ email: req.params.email }).toArray()
       res.send(result)
     })
-    // single card 
+    // single card
     app.get("/singleFood/:id", async (req, res) => {
       const result = await foodCollection.findOne({ _id: new ObjectId(req.params.id) })
+      res.send(result)
+    })
+
+
+    app.post('/req',async(req,res)=>{
+      const reqData=req.body;
+
+
+      const result=await reqCollection.insertOne(reqData)
       res.send(result)
     })
     // update
