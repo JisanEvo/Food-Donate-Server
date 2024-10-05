@@ -3,18 +3,21 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const cors = require('cors')
 require('dotenv').config()
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 const app = express()
 const corsOption = {
-  origin: ['http://localhost:5173'],
+  origin: ['http://localhost:5173',
+    "https://food-donate-server-mvl63ozb7-develops-hunt.vercel.app",
+     "https://food-donate-44a06.firebaseapp.com",
+  ],
   credentials: true,
   optionSuccessStatus: 200
 }
 app.use(cors(corsOption))
 app.use(express.json())
 
-console.log(process.env.DB_PASS)
+// console.log(process.env.DB_PASS)
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qrw2ki7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -29,7 +32,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
- 
+
     const foodCollection = client.db('foodDonate').collection('allFood');
     const reqCollection = client.db('foodDonate').collection('reqFood');
 
@@ -111,7 +114,7 @@ res.send(result)
 
 
 
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
