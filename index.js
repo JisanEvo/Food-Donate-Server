@@ -7,7 +7,7 @@ const port = process.env.PORT || 8000;
 
 const app = express()
 const corsOption = {
-  origin: ['http://localhost:5173',
+  origin: [
     "https://food-donate-server-two.vercel.app",
      "https://food-donate-44a06.firebaseapp.com",
   ],
